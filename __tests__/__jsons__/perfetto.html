@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <style>
+        iframe {
+            width: 100vw;
+            height: 100vh;
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+
+        #fixtures::before {
+            display: block;
+            content: 'FIXTURES:';
+            margin-bottom: 1em;
+        }
+    </style>
+</head>
+<body>
+    <ul id="fixtures" hidden>
+    </ul>
+
+    <iframe id="perfetto" name="perfetto" hidden></iframe>
+
+    <script type="text/javascript">
+        const ORIGIN = 'https://ui.perfetto.dev';
+        let filename;
+
+        function onHashChange() {
+            filename = location.hash.slice(1);
+            document.getElementById('fixtures').hidden = !!filename;
+            document.getElementById('perfetto').hidden = !filename;
+
+            if (filename) {
+                fetch(`/${filename}`).then(r => r.json()).then(loadPerfetto);
+            } else {
+                fetch(`/`).then(r => r.text()).then(loadCatalogue);
+            }
+        }
+
+        function loadCatalogue(rawHtml) {
+            const dummy = document.createElement('html');
+            dummy.innerHTML = rawHtml;
+            const links = [...dummy.querySelectorAll('a[href$=json]')];
+            const fixtures = document.getElementById('fixtures');
+            for (const link of links) {
+                link.href = new URL(link.href).pathname.replace('/', '#');
+                const li = document.createElement('li');
+                li.appendChild(link);
+                fixtures.appendChild(li);
+            }
+        }
+
+        function loadPerfetto(events) {
+            const handle = window.open(ORIGIN, 'perfetto');
+            const timer = setInterval(() => handle.postMessage('PING', ORIGIN), 200);
+            window.addEventListener('message', function onMessageHandler(evt) {
+                if (evt.data !== 'PONG') return;
+                window.clearInterval(timer);
+                window.removeEventListener('message', onMessageHandler);
+
+                handle.postMessage({
+                    perfetto: {
+                        buffer: new TextEncoder().encode(JSON.stringify(events)).buffer,
+                        title: 'Sample Trace',
+                        url: `${new URL(location.href)}`,
+                    }
+                }, ORIGIN);
+            });
+        }
+
+        window.onhashchange = onHashChange;
+        onHashChange();
+    </script>
+</body>
+</html>

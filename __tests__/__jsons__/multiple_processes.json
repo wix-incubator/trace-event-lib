@@ -1,0 +1,49 @@
+[
+  {
+    "ph": "M",
+    "args": {
+      "name": "cli"
+    },
+    "ts": 0,
+    "tid": 0,
+    "pid": 1,
+    "name": "process_name"
+  },
+  {
+    "ph": "M",
+    "args": {
+      "name": "jest"
+    },
+    "ts": 0,
+    "tid": 0,
+    "pid": 2,
+    "name": "process_name"
+  },
+  {
+    "ph": "X",
+    "cat": "spawn",
+    "dur": 2500000,
+    "name": "jest --runInBand",
+    "pid": 1,
+    "tid": 0,
+    "ts": 0
+  },
+  {
+    "ph": "X",
+    "cat": "run",
+    "dur": 1000000,
+    "name": "01.test.js",
+    "pid": 2,
+    "tid": 0,
+    "ts": 250000
+  },
+  {
+    "ph": "X",
+    "cat": "run",
+    "dur": 1000000,
+    "name": "02.test.js",
+    "pid": 2,
+    "tid": 0,
+    "ts": 1250000
+  }
+]

@@ -1,0 +1,74 @@
+[
+  {
+    "ph": "b",
+    "cat": "app",
+    "name": "launch app [com.example.App1]",
+    "pid": 1,
+    "tid": 0,
+    "ts": 0,
+    "id": 0
+  },
+  {
+    "ph": "b",
+    "cat": "app",
+    "name": "install app",
+    "pid": 1,
+    "tid": 0,
+    "ts": 0,
+    "id": 0
+  },
+  {
+    "ph": "e",
+    "tid": 0,
+    "ts": 8000000,
+    "pid": 1,
+    "id": 0,
+    "cat": "app",
+    "name": "install app"
+  },
+  {
+    "ph": "e",
+    "tid": 0,
+    "ts": 10000000,
+    "pid": 1,
+    "id": 0,
+    "cat": "app",
+    "name": "launch app [com.example.App1]"
+  },
+  {
+    "ph": "b",
+    "cat": "app",
+    "name": "launch app [com.example.App2]",
+    "pid": 1,
+    "tid": 0,
+    "ts": 2000000,
+    "id": 1
+  },
+  {
+    "ph": "b",
+    "cat": "app",
+    "name": "install app",
+    "pid": 1,
+    "tid": 0,
+    "ts": 2000000,
+    "id": 1
+  },
+  {
+    "ph": "e",
+    "tid": 0,
+    "ts": 8000000,
+    "pid": 1,
+    "id": 1,
+    "cat": "app",
+    "name": "install app"
+  },
+  {
+    "ph": "e",
+    "tid": 0,
+    "ts": 12000000,
+    "pid": 1,
+    "id": 1,
+    "cat": "app",
+    "name": "launch app [com.example.App2]"
+  }
+]

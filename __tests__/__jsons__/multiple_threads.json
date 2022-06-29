@@ -1,0 +1,130 @@
+[
+  {
+    "ph": "B",
+    "ts": 0,
+    "cat": "device",
+    "name": "boot",
+    "pid": 1,
+    "tid": 1
+  },
+  {
+    "ph": "E",
+    "ts": 1000000,
+    "pid": 1,
+    "tid": 1
+  },
+  {
+    "ph": "X",
+    "cat": "device",
+    "dur": 750000,
+    "name": "install app",
+    "pid": 1,
+    "tid": 1,
+    "ts": 1250000
+  },
+  {
+    "ph": "X",
+    "cat": "device",
+    "dur": 250000,
+    "name": "launch app",
+    "pid": 1,
+    "tid": 1,
+    "ts": 4000000
+  },
+  {
+    "ph": "B",
+    "ts": 3000000,
+    "cat": "lifecycle",
+    "name": "Dashboard - should have a currency widget",
+    "pid": 1,
+    "tid": 0
+  },
+  {
+    "ph": "B",
+    "ts": 4000000,
+    "cat": "lifecycle",
+    "name": "beforeEach",
+    "pid": 1,
+    "tid": 0
+  },
+  {
+    "ph": "E",
+    "ts": 5000000,
+    "pid": 1,
+    "tid": 0
+  },
+  {
+    "ph": "B",
+    "ts": 6000000,
+    "cat": "lifecycle",
+    "name": "testFn",
+    "pid": 1,
+    "tid": 0
+  },
+  {
+    "ph": "E",
+    "ts": 8000000,
+    "pid": 1,
+    "tid": 0
+  },
+  {
+    "ph": "B",
+    "ts": 9000000,
+    "cat": "lifecycle",
+    "name": "afterEach",
+    "pid": 1,
+    "tid": 0
+  },
+  {
+    "ph": "E",
+    "ts": 10000000,
+    "pid": 1,
+    "tid": 0
+  },
+  {
+    "ph": "E",
+    "ts": 11000000,
+    "pid": 1,
+    "tid": 0
+  },
+  {
+    "ph": "M",
+    "args": {
+      "name": "Test lifecycle"
+    },
+    "ts": 0,
+    "tid": 0,
+    "pid": 1,
+    "name": "thread_name"
+  },
+  {
+    "ph": "M",
+    "args": {
+      "name": "Device"
+    },
+    "ts": 0,
+    "tid": 1,
+    "pid": 1,
+    "name": "thread_name"
+  },
+  {
+    "ph": "M",
+    "args": {
+      "sort_index": 2
+    },
+    "ts": 0,
+    "tid": 0,
+    "pid": 1,
+    "name": "thread_sort_index"
+  },
+  {
+    "ph": "M",
+    "args": {
+      "sort_index": 1
+    },
+    "ts": 0,
+    "tid": 1,
+    "pid": 1,
+    "name": "thread_sort_index"
+  }
+]

@@ -1,0 +1,16 @@
+{
+    "extends": "..",
+    "compilerOptions": {
+        "rootDir": "..",
+        "noEmit": true,
+        "types": [
+            "node",
+            "jest"
+        ]
+    },
+    "include": [
+        "../src/**/*.ts",
+        "./types.d.ts",
+        "**/*.ts"
+    ]
+}

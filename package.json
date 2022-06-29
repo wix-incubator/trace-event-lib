@@ -1,0 +1,70 @@
+{
+  "name": "trace-event-lib",
+  "description": "A library to create a trace of your JS app per Google's Trace Event format.",
+  "license": "MIT",
+  "version": "1.0.0",
+  "authors": [
+    "Yaroslav Serhieiev <yaroslavs@wix.com>"
+  ],
+  "keywords": [
+    "trace-event",
+    "trace",
+    "event",
+    "trace-viewer",
+    "google"
+  ],
+  "repository": {
+    "url": "github:wix-incubator/chrome-trace-event"
+  },
+  "main": "./dist/index.js",
+  "typings": "./dist/index.d.ts",
+  "devDependencies": {
+    "@jest/environment": "^28.1.2",
+    "@jest/types": "^28.1.1",
+    "@types/http-server": "^0.12.1",
+    "@types/jest": "^28.1.3",
+    "@types/lodash": "^4.14.182",
+    "@types/node": "^12.20.55",
+    "@typescript-eslint/eslint-plugin": "^5.29.0",
+    "@typescript-eslint/parser": "^5.29.0",
+    "eslint": "^8.18.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-import-resolver-typescript": "^3.1.1",
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-jsdoc": "^39.3.3",
+    "eslint-plugin-no-only-tests": "^2.6.0",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-prettier": "^4.1.0",
+    "eslint-plugin-unicorn": "^42.0.0",
+    "fs-extra": "^10.1.0",
+    "http-server": "^14.1.1",
+    "jest": "^28.1.1",
+    "jest-environment-node": "^28.1.2",
+    "jest-image-snapshot": "^5.1.0",
+    "prettier": "^2.7.1",
+    "puppeteer": "^15.1.1",
+    "ts-jest": "^28.0.5",
+    "ts-node": "^10.8.1",
+    "typescript": "~4.3.5",
+    "zx": "^7.0.3"
+  },
+  "dependencies": {
+    "browser-process-hrtime": "^1.0.0",
+    "lodash": "^4.17.21"
+  },
+  "engines": {
+    "node": ">=12.0.0"
+  },
+  "files": [
+    "src",
+    "dist"
+  ],
+  "scripts": {
+    "prepare": "npm run build",
+    "build": "tsc",
+    "start": "http-server -p 8080 __tests__/__jsons__",
+    "lint": "eslint . --fix",
+    "lint:ci": "eslint .",
+    "test": "jest"
+  }
+}
