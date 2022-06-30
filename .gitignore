@@ -12,6 +12,7 @@ yarn.lock
 .idea
 .vscode
 
+/coverage
 /website
 /dist
 /trace-event-lib-*.tgz
