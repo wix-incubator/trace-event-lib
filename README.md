@@ -1,6 +1,6 @@
 # trace-event-lib
 
-![CI](https://github.com/wix-incubator/trace-event-lib/actions/workflows/ci/badge.svg)
+[![CI](https://github.com/wix-incubator/trace-event-lib/actions/workflows/ci.yml/badge.svg)](https://github.com/wix-incubator/trace-event-lib/actions/workflows/ci.yml)
 [![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/)
 
 A library to create a trace of your JS app per [Google's Trace Event format](https://docs.google.com/document/d/1CvAClvFfyA5R-PhYUmn5OOQtYMH4h6I0nSsKchNAySU).
