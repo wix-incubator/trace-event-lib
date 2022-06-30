@@ -24,7 +24,60 @@ import { EventHandle } from './EventHandle';
 import { getProcessId, now, Simplified } from './misc';
 
 export abstract class AbstractEventBuilder {
-  complete(event: Simplified<CompleteEvent>): void {
+  public begin(event: Simplified<DurationBeginEvent>): EventHandle<DurationEndEvent> {
+    const { args, tts, ts, cat, name, sf, cname, pid, tid, stack } = this.defaults(event);
+    this._callSend({
+      ph: 'B',
+      args,
+      tts,
+      ts,
+      cat,
+      name,
+      sf,
+      cname,
+      pid,
+      tid,
+      stack,
+    } as DurationBeginEvent);
+
+    return new EventHandle<DurationEndEvent>((event) => this.end(event), {
+      ph: 'E',
+      pid: event.pid,
+      tid: event.tid,
+    });
+  }
+
+  public beginAsync(event: Simplified<AsyncStartEvent>): EventHandle<AsyncEndEvent> {
+    const { args, cat, name, pid, tid, ts, tts, cname, id, id2, scope } = this.defaults(event);
+    this._callSend({
+      ph: 'b',
+      args,
+      cat,
+      name,
+      pid,
+      tid,
+      ts,
+      tts,
+      cname,
+      id,
+      id2,
+      scope,
+    } as AsyncStartEvent);
+
+    return new EventHandle<AsyncEndEvent>((event) => this.endAsync(event), {
+      ph: 'e',
+
+      cat,
+      id,
+      id2,
+      name,
+      pid,
+      scope,
+      tid,
+    });
+  }
+
+  public complete(event: Simplified<CompleteEvent>): void {
     const { tid, pid, ts, args, tts, sf, cname, dur, stack, esf, cat, name, tdur, estack } =
       this.defaults(event);
 
@@ -47,39 +100,35 @@ export abstract class AbstractEventBuilder {
     } as CompleteEvent);
   }
 
-  begin(event: Simplified<DurationBeginEvent>): EventHandle<DurationEndEvent> {
-    const { args, tts, ts, cat, name, sf, cname, pid, tid, stack } = this.defaults(event);
-    this._callSend({
-      ph: 'B',
-      args,
-      tts,
-      ts,
-      cat,
-      name,
-      sf,
-      cname,
-      pid,
-      tid,
-      stack,
-    } as DurationBeginEvent);
-
-    return new EventHandle<DurationEndEvent>((event) => this.end(event), {
-      ph: 'E',
-      pid: event.pid,
-      tid: event.tid,
-      cname,
-      sf,
-      stack,
-      tts,
-    });
+  public counter(event: Simplified<CounterEvent>): void {
+    const { args, cat, cname, pid, tid, ts, tts, name, id } = this.defaults(event);
+    this._callSend({ ph: 'C', args, cat, cname, pid, tid, ts, tts, name, id } as CounterEvent);
   }
 
-  end(event: Simplified<DurationEndEvent>): void {
+  public end(event: Simplified<DurationEndEvent>): void {
     const { args, tts, ts, sf, cname, pid, tid, stack } = this.defaults(event);
     this._callSend({ ph: 'E', args, tts, ts, sf, cname, pid, tid, stack } as DurationEndEvent);
   }
 
-  instant(event: Simplified<InstantEvent>): void {
+  public endAsync(event: Simplified<AsyncEndEvent>): void {
+    const { args, tts, tid, ts, pid, cname, id, id2, scope, cat, name } = this.defaults(event);
+    this._callSend({
+      ph: 'e',
+      args,
+      tts,
+      tid,
+      ts,
+      pid,
+      cname,
+      id,
+      id2,
+      scope,
+      cat,
+      name,
+    } as AsyncEndEvent);
+  }
+
+  public instant(event: Simplified<InstantEvent>): void {
     const { args, sf, cname, pid, tid, ts, tts, cat, name, s, stack } = this.defaults(event);
 
     this._callSend({
@@ -98,56 +147,7 @@ export abstract class AbstractEventBuilder {
     } as InstantEvent);
   }
 
-  beginAsync(event: Simplified<AsyncStartEvent>): EventHandle<AsyncEndEvent> {
-    const { args, cat, name, pid, tid, ts, tts, cname, id, id2, scope } = this.defaults(event);
-    this._callSend({
-      ph: 'b',
-      args,
-      cat,
-      name,
-      pid,
-      tid,
-      ts,
-      tts,
-      cname,
-      id,
-      id2,
-      scope,
-    } as AsyncStartEvent);
-
-    return new EventHandle<AsyncEndEvent>((event) => this.endAsync(event), {
-      ph: 'e',
-
-      cat,
-      cname,
-      id,
-      id2,
-      name,
-      pid,
-      scope,
-      tid,
-    });
-  }
-
-  endAsync(event: Simplified<AsyncEndEvent>): void {
-    const { args, tts, tid, ts, pid, cname, id, id2, scope, cat, name } = this.defaults(event);
-    this._callSend({
-      ph: 'e',
-      args,
-      tts,
-      tid,
-      ts,
-      pid,
-      cname,
-      id,
-      id2,
-      scope,
-      cat,
-      name,
-    } as AsyncEndEvent);
-  }
-
-  instantAsync(event: Simplified<AsyncInstantEvent>): void {
+  public instantAsync(event: Simplified<AsyncInstantEvent>): void {
     const { args, cat, name, pid, tid, ts, tts, cname, id, id2, scope } = this.defaults(event);
     this._callSend({
       ph: 'n',
@@ -165,25 +165,12 @@ export abstract class AbstractEventBuilder {
     } as AsyncInstantEvent);
   }
 
-  counter(event: Simplified<CounterEvent>): void {
-    const { args, cat, cname, pid, tid, ts, tts, name, id } = this.defaults(event);
-    this._callSend({ ph: 'C', args, cat, cname, pid, tid, ts, tts, name, id } as CounterEvent);
-  }
-
-  metadata<T extends MetadataEvent>(event: Simplified<T>): void {
+  public metadata<T extends MetadataEvent>(event: Simplified<T>): void {
     const { args, tts, ts, tid, pid, cname, cat, name } = this.defaults(event);
     this._callSend({ ph: 'M', args, tts, ts, tid, pid, cname, cat, name } as MetadataEvent);
   }
 
-  process_name(name: string, pid?: number): void {
-    this.metadata<MetadataProcessNameEvent>({
-      pid,
-      name: 'process_name',
-      args: { name },
-    });
-  }
-
-  process_labels(labels: string[], pid?: number): void {
+  public process_labels(labels: string[], pid?: number): void {
     this.metadata<MetadataProcessLabelsEvent>({
       pid,
       name: 'process_labels',
@@ -191,7 +178,15 @@ export abstract class AbstractEventBuilder {
     });
   }
 
-  process_sort_index(index: number, pid?: number): void {
+  public process_name(name: string, pid?: number): void {
+    this.metadata<MetadataProcessNameEvent>({
+      pid,
+      name: 'process_name',
+      args: { name },
+    });
+  }
+
+  public process_sort_index(index: number, pid?: number): void {
     this.metadata<MetadataProcessSortIndexEvent>({
       pid,
       name: 'process_sort_index',
@@ -199,7 +194,7 @@ export abstract class AbstractEventBuilder {
     });
   }
 
-  thread_name(name: string, tid?: number, pid?: number): void {
+  public thread_name(name: string, tid?: number, pid?: number): void {
     this.metadata<MetadataThreadNameEvent>({
       pid,
       tid,
@@ -208,7 +203,7 @@ export abstract class AbstractEventBuilder {
     });
   }
 
-  thread_sort_index(index: number, tid?: number, pid?: number): void {
+  public thread_sort_index(index: number, tid?: number, pid?: number): void {
     this.metadata<MetadataThreadSortIndexEvent>({
       pid,
       tid,
@@ -216,12 +211,6 @@ export abstract class AbstractEventBuilder {
       args: { sort_index: index },
     });
   }
-
-  _callSend<T extends Event>(event: T): void {
-    this.send(omitBy(event, isUndefined) as T);
-  }
-
-  protected abstract send<T extends Event>(event: T): void;
 
   protected defaults<T extends Partial<Event>>(event: T): T & AutocompletedEventFields {
     const { ts = now(), pid = getProcessId(), tid = 0 } = event;
@@ -234,4 +223,10 @@ export abstract class AbstractEventBuilder {
       tid,
     } as any; // eslint-disable-line @typescript-eslint/no-explicit-any
   }
+
+  private _callSend<T extends Event>(event: T): void {
+    this.send(omitBy(event, isUndefined) as T);
+  }
+
+  protected abstract send<T extends Event>(event: T): void;
 }
