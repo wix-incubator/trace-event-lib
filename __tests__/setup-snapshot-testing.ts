@@ -12,7 +12,7 @@ declare global {
   // eslint-disable-next-line @typescript-eslint/no-namespace
   namespace jest {
     interface Matchers<R> {
-      toMatchImageSnapshot(): R;
+      toMatchImageSnapshot(options: unknown): R;
     }
   }
 }
@@ -34,7 +34,10 @@ afterEach(async () => {
   jest.useRealTimers();
 
   const json = await SnapshotExtractor.save(trace.events);
-  expect(await screenshotter.screenshot(json)).toMatchImageSnapshot();
+  expect(await screenshotter.screenshot(json)).toMatchImageSnapshot({
+    failureThreshold: 1.5,
+    failureThresholdType: 'percent',
+  });
 });
 
 afterAll(async () => {
