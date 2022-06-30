@@ -28,6 +28,12 @@ jobs:
       - name: Test
         run: npm run test:ci
 
+      - name: Upload failed comparison results
+        uses: actions/upload-artifact@v3
+        if: failure()
+        with:
+          path: __tests__/__image_snapshots__/__diff_output__
+
       - name: Coveralls
         uses: coverallsapp/github-action@master
         with:
