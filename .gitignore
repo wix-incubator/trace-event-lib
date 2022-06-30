@@ -7,8 +7,12 @@ yarn.lock
 /examples/*.json
 
 *.log
-dist/
 
 .DS_Store
 .idea
 .vscode
+
+/coverage
+/website
+/dist
+/trace-event-lib-*.tgz

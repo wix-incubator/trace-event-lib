@@ -17,6 +17,7 @@
     ],
     "ignorePatterns": [
         "dist",
+        "website",
         "jest.config.js"
     ],
     "parser": "@typescript-eslint/parser",
@@ -41,6 +42,7 @@
         "import/no-unresolved": 2,
         "node/no-missing-import": "off",
         "node/no-unsupported-features/es-syntax": "off",
+        "@typescript-eslint/member-ordering": "error",
         "unicorn/filename-case": "off",
         "unicorn/import-style": "off",
         "unicorn/prefer-node-protocol": "off",

@@ -14,11 +14,13 @@
     "google"
   ],
   "repository": {
-    "url": "github:wix-incubator/chrome-trace-event"
+    "url": "github:wix-incubator/trace-event-lib"
   },
   "main": "./dist/index.js",
   "typings": "./dist/index.d.ts",
   "devDependencies": {
+    "@commitlint/cli": "^17.0.3",
+    "@commitlint/config-conventional": "^17.0.3",
     "@jest/environment": "^28.1.2",
     "@jest/types": "^28.1.1",
     "@types/http-server": "^0.12.1",
@@ -27,6 +29,7 @@
     "@types/node": "^12.20.55",
     "@typescript-eslint/eslint-plugin": "^5.29.0",
     "@typescript-eslint/parser": "^5.29.0",
+    "cz-conventional-changelog": "^3.3.0",
     "eslint": "^8.18.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-import-resolver-typescript": "^3.1.1",
@@ -38,13 +41,17 @@
     "eslint-plugin-unicorn": "^42.0.0",
     "fs-extra": "^10.1.0",
     "http-server": "^14.1.1",
+    "husky": "^8.0.1",
     "jest": "^28.1.1",
     "jest-environment-node": "^28.1.2",
     "jest-image-snapshot": "^5.1.0",
+    "lint-staged": "^13.0.3",
     "prettier": "^2.7.1",
     "puppeteer": "^15.1.1",
+    "semantic-release": "^19.0.3",
     "ts-jest": "^28.0.5",
     "ts-node": "^10.8.1",
+    "typedoc": "^0.22.18",
     "typescript": "~4.3.5",
     "zx": "^7.0.3"
   },
@@ -56,15 +63,20 @@
     "node": ">=12.0.0"
   },
   "files": [
+    "media/duration-events-test-ts-multiple-threads-2-snap.png",
     "src",
     "dist"
   ],
   "scripts": {
-    "prepare": "npm run build",
+    "prepare": "husky install && npm run build",
     "build": "tsc",
     "start": "http-server -p 8080 __tests__/__jsons__",
+    "docs": "typedoc && cp -r media website",
+    "website": "http-server -p 3000 website",
     "lint": "eslint . --fix",
     "lint:ci": "eslint .",
-    "test": "jest"
+    "lint:staged": "lint-staged",
+    "test": "jest",
+    "test:ci": "jest --coverage"
   }
 }
