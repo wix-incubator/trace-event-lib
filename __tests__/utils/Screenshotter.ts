@@ -24,6 +24,7 @@ export class Screenshotter {
 
       await fileChooser.accept([traceJsonFile]);
       await page.waitForSelector('.overlay', { hidden: true });
+      await page.waitForSelector('#hint_text', { hidden: true });
       await page.waitForTimeout(500);
       const image = await page.screenshot();
 
