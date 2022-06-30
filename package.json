@@ -74,8 +74,8 @@
     "docs": "typedoc && cp -r media website",
     "website": "http-server -p 3000 website",
     "lint": "eslint . --fix",
-    "lint:staged": "lint-staged",
     "lint:ci": "eslint .",
+    "lint:staged": "lint-staged",
     "test": "jest",
     "test:ci": "jest --coverage"
   }
