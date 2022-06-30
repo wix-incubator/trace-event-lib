@@ -68,12 +68,13 @@
     "dist"
   ],
   "scripts": {
-    "prepare": "npm run build",
+    "prepare": "husky install && npm run build",
     "build": "tsc",
     "start": "http-server -p 8080 __tests__/__jsons__",
     "docs": "typedoc && cp -r media website",
     "website": "http-server -p 3000 website",
     "lint": "eslint . --fix",
+    "lint:staged": "lint-staged",
     "lint:ci": "eslint .",
     "test": "jest",
     "test:ci": "jest --coverage"
