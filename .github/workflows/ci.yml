@@ -35,11 +35,6 @@ jobs:
           name: 'screenshot-diff'
           path: __tests__/__image_snapshots__/__diff_output__
 
-      - name: Coveralls
-        uses: coverallsapp/github-action@master
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-
       - name: Semantic release
         if: github.ref == 'refs/heads/master'
         run: npx --no-install semantic-release --debug
