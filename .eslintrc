@@ -16,9 +16,10 @@
         "plugin:prettier/recommended"
     ],
     "ignorePatterns": [
-        "dist",
-        "website",
-        "jest.config.js"
+      "coverage",
+      "dist",
+      "website",
+      "jest.config.js"
     ],
     "parser": "@typescript-eslint/parser",
     "parserOptions": {
