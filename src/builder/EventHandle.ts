@@ -1,14 +1,13 @@
 import { Event } from '../schema';
 import { Completable } from './misc';
-import { EndHandle } from './EndHandle';
 
-export class EventHandle<T extends Event> implements EndHandle<Completable<T>> {
+export class EventHandle<E extends Event> {
   constructor(
-    protected readonly callback: (event: Completable<T>) => void,
-    protected readonly payload: Completable<T>,
+    protected readonly endCallback: (event: Completable<E>) => void,
+    protected readonly payload: Completable<E>,
   ) {}
 
-  end(extra?: Partial<T>) {
-    this.callback({ ...this.payload, ...extra });
+  end(extra?: Partial<E>) {
+    this.endCallback({ ...this.payload, ...extra });
   }
 }

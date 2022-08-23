@@ -5,9 +5,9 @@ import { Event } from '../schema';
 export type RealtimeKeys = 'ts' | 'pid' | 'tid';
 export type RealtimeKeysAndPhase = RealtimeKeys | 'ph';
 
-export type Completable<T extends Event> = Omit<T, RealtimeKeys> & Partial<Pick<T, RealtimeKeys>>;
-export type Simplified<T extends Event> = Omit<T, RealtimeKeysAndPhase> &
-  Partial<Pick<T, RealtimeKeysAndPhase>>;
+export type OmitOptionally<T, K extends keyof T> = Omit<T, K> & Partial<Pick<T, K>>;
+export type Completable<T extends Event> = OmitOptionally<T, RealtimeKeys>;
+export type Simplified<T extends Event> = OmitOptionally<T, RealtimeKeysAndPhase>;
 
 /**
  * @param {number} ns - nanoseconds

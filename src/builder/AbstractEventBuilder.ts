@@ -20,11 +20,11 @@ import {
   MetadataThreadSortIndexEvent,
 } from '..';
 
-import { EventHandle } from './EventHandle';
-import { getProcessId, now, Simplified } from './misc';
+import { Completable, getProcessId, now, Simplified } from './misc';
+import { AsyncEventHandle, DurationEventHandle } from '../handles';
 
 export abstract class AbstractEventBuilder {
-  public begin(event: Simplified<DurationBeginEvent>): EventHandle<DurationEndEvent> {
+  public begin(event: Simplified<DurationBeginEvent>): DurationEventHandle {
     const { args, tts, ts, cat, name, sf, cname, pid, tid, stack } = this.defaults(event);
     this._callSend({
       ph: 'B',
@@ -40,14 +40,10 @@ export abstract class AbstractEventBuilder {
       stack,
     } as DurationBeginEvent);
 
-    return new EventHandle<DurationEndEvent>((event) => this.end(event), {
-      ph: 'E',
-      pid: event.pid,
-      tid: event.tid,
-    });
+    return new DurationEventHandle(this, event);
   }
 
-  public beginAsync(event: Simplified<AsyncStartEvent>): EventHandle<AsyncEndEvent> {
+  public beginAsync(event: Simplified<AsyncStartEvent>): AsyncEventHandle {
     const { args, cat, name, pid, tid, ts, tts, cname, id, id2, scope } = this.defaults(event);
     this._callSend({
       ph: 'b',
@@ -64,17 +60,7 @@ export abstract class AbstractEventBuilder {
       scope,
     } as AsyncStartEvent);
 
-    return new EventHandle<AsyncEndEvent>((event) => this.endAsync(event), {
-      ph: 'e',
-
-      cat,
-      id,
-      id2,
-      name,
-      pid,
-      scope,
-      tid,
-    });
+    return new AsyncEventHandle(this, event);
   }
 
   public complete(event: Simplified<CompleteEvent>): void {
@@ -224,9 +210,9 @@ export abstract class AbstractEventBuilder {
     } as any; // eslint-disable-line @typescript-eslint/no-explicit-any
   }
 
-  private _callSend<T extends Event>(event: T): void {
-    this.send(omitBy(event, isUndefined) as T);
-  }
+  private readonly _callSend = <T extends Event>(event: Completable<T>): void => {
+    this.send(omitBy(this.defaults(event) as T, isUndefined) as T);
+  };
 
   protected abstract send<T extends Event>(event: T): void;
 }

@@ -16,4 +16,8 @@ export interface CounterEvent extends Event {
    * When an id field exists, the combination of the event name and id is used as the counter name.
    */
   id?: number;
+  /**
+   * Reportedly, counter events do not have categories.
+   */
+  cat?: never;
 }

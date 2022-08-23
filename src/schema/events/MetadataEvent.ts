@@ -7,6 +7,7 @@ import { Event } from './Event';
 export interface MetadataEvent extends Event {
   /** @inheritDoc */
   ph: 'M';
+  cat?: never;
 }
 
 /**
