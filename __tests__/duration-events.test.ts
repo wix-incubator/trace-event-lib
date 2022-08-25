@@ -8,8 +8,8 @@ test('single process', async () => {
   trace.begin({ cat: 'device', name: 'Boot a device', ts: 0 });
   trace.end({ ts: 1e6 });
 
-  // Duration events: chainable call
-  trace.begin({ cat: 'test', name: 'Run a test suite', ts: 1e6 }).end({ ts: 1e7 });
+  trace.begin({ cat: 'test', name: 'Run a test suite', ts: 1e6 });
+  trace.end({ ts: 1e7 });
 
   // Complete event
   trace.complete({ cat: 'device', name: 'Shutdown the device', ts: 1e7, dur: 3e6 });
@@ -30,7 +30,8 @@ test('multiple processes', async () => {
 
 test('multiple threads', async () => {
   // Simple thread (1)
-  trace.begin({ tid: 1, cat: 'device', name: 'boot', ts: 0 }).end({ ts: 1e6 });
+  trace.begin({ tid: 1, cat: 'device', name: 'boot', ts: 0 });
+  trace.end({ tid: 1, ts: 1e6 });
   trace.complete({ tid: 1, cat: 'device', name: 'install app', ts: 1.25e6, dur: 0.75e6 });
   trace.complete({ tid: 1, cat: 'device', name: 'launch app', ts: 4e6, dur: 0.25e6 });
 
@@ -41,9 +42,13 @@ test('multiple threads', async () => {
     name: 'Dashboard - should have a currency widget',
     ts: 3e6,
   });
-  trace.begin({ tid: 0, cat: 'lifecycle', name: 'beforeEach', ts: 4e6 }).end({ ts: 5e6 });
-  trace.begin({ tid: 0, cat: 'lifecycle', name: 'testFn', ts: 6e6 }).end({ ts: 8e6 });
-  trace.begin({ tid: 0, cat: 'lifecycle', name: 'afterEach', ts: 9e6 }).end({ ts: 10e6 });
+
+  trace.begin({ tid: 0, cat: 'lifecycle', name: 'beforeEach', ts: 4e6 });
+  trace.end({ tid: 0, ts: 5e6 });
+  trace.begin({ tid: 0, cat: 'lifecycle', name: 'testFn', ts: 6e6 });
+  trace.end({ tid: 0, ts: 8e6 });
+  trace.begin({ tid: 0, cat: 'lifecycle', name: 'afterEach', ts: 9e6 });
+  trace.end({ tid: 0, ts: 10e6 });
   trace.end({ tid: 0, ts: 11e6 });
 
   // Metadata events: thread_name - explicit

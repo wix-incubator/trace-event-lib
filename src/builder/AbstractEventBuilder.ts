@@ -21,11 +21,11 @@ import {
 } from '..';
 
 import { Completable, getProcessId, now, Simplified } from './misc';
-import { AsyncEventHandle, DurationEventHandle } from '../handles';
 
 export abstract class AbstractEventBuilder {
-  public begin(event: Simplified<DurationBeginEvent>): DurationEventHandle {
+  public begin(event: Simplified<DurationBeginEvent>): void {
     const { args, tts, ts, cat, name, sf, cname, pid, tid, stack } = this.defaults(event);
+
     this._callSend({
       ph: 'B',
       args,
@@ -39,12 +39,11 @@ export abstract class AbstractEventBuilder {
       tid,
       stack,
     } as DurationBeginEvent);
-
-    return new DurationEventHandle(this, event);
   }
 
-  public beginAsync(event: Simplified<AsyncStartEvent>): AsyncEventHandle {
+  public beginAsync(event: Simplified<AsyncStartEvent>): void {
     const { args, cat, name, pid, tid, ts, tts, cname, id, id2, scope } = this.defaults(event);
+
     this._callSend({
       ph: 'b',
       args,
@@ -59,8 +58,6 @@ export abstract class AbstractEventBuilder {
       id2,
       scope,
     } as AsyncStartEvent);
-
-    return new AsyncEventHandle(this, event);
   }
 
   public complete(event: Simplified<CompleteEvent>): void {
