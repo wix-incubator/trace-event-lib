@@ -25,7 +25,7 @@ beforeAll(async () => {
 });
 
 beforeEach(() => {
-  jest.useFakeTimers();
+  jest.useFakeTimers({ now: 0 });
   trace = new JSONEventBuilder();
 });
 
