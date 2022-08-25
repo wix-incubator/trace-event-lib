@@ -27,41 +27,42 @@ import { AbstractEventBuilder } from 'chrome-trace-event';
 
 class ConcreteEventBuilder extends AbstractEventBuilder {
     send(event) {
-        // write your event into a stream, array, etc...
+        // Implement the abstract method: push events into a stream, array, etc.
     }
 }
 
 const trace = new ConcreteEventBuilder();
 
-trace.begin({ cat: 'category1', name: 'event name' });
-// ... do something ...
+trace.begin({ cat: 'category1,category2', name: 'duration event' });
+// ...
+trace.instant({ name: 'resolve config', args: { /* ... */ } });
+// ...
+trace.complete({ name: 'nested event', dur: 3e6 /* 3s */ });
+// ...
 trace.end();
 
-const handle = trace.begin({ cat: 'network', name: 'send request', tid: 2 });
-// ... do something ...
-handle.end({ args: { /* response */ } });
-
-// See also:
-//
-// * trace.instant
-// * trace.complete
-// * trace.beginAsync
-// * trace.instantAsync
-// * trace.endAsync
-// * trace.counter
-// * trace.metadata
-// * trace.process_name
-// * trace.process_labels
-// * trace.process_sort_index
-// * trace.thread_name
-// * trace.thread_sort_index
+/**
+ * Also, see the other methods on the website.
+ *
+ * @see {@link AbstractEventBuilder#beginAsync}
+ * @see {@link AbstractEventBuilder#instantAsync}
+ * @see {@link AbstractEventBuilder#endAsync}
+ * @see {@link AbstractEventBuilder#counter}
+ * @see {@link AbstractEventBuilder#metadata}
+ * @see {@link AbstractEventBuilder#process_name}
+ * @see {@link AbstractEventBuilder#process_labels}
+ * @see {@link AbstractEventBuilder#process_sort_index}
+ * @see {@link AbstractEventBuilder#thread_name}
+ * @see {@link AbstractEventBuilder#thread_sort_index}
+ */
 ```
 
-# Links
+## Links
 
-* https://github.com/google/trace-viewer/wiki
-* https://docs.google.com/document/d/1CvAClvFfyA5R-PhYUmn5OOQtYMH4h6I0nSsKchNAySU
+* GH pages: <https://wix-incubator.github.io/trace-event-lib>
+* Chrome Trace Event format specification: <https://docs.google.com/document/d/1CvAClvFfyA5R-PhYUmn5OOQtYMH4h6I0nSsKchNAySU>
+* Catapult project Wiki (archived): <https://github.com/google/trace-viewer/wiki>
 
-# License
+## License
 
 [MIT License](LICENSE)

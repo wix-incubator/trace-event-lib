@@ -25,8 +25,6 @@ export interface DurationBeginEvent extends DurationEvent {
   ph: 'B';
   /** @inheritDoc */
   name: string;
-  /** @inheritDoc */
-  cat: string;
 }
 
 export interface DurationEndEvent extends DurationEvent {

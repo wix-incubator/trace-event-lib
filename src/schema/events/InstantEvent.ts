@@ -9,8 +9,6 @@ export interface InstantEvent extends EventWithStack {
   ph: 'i';
   /** @inheritDoc */
   name: string;
-  /** @inheritDoc */
-  cat: string;
   /**
    * The scope of the event.
    * There are four scopes available global (g), process (p) and thread (t).

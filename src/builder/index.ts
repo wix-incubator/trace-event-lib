@@ -95,7 +95,7 @@ export abstract class AbstractEventBuilder {
     this._callSend({ ph: 'C', args, cat, cname, pid, tid, ts, tts, name, id } as CounterEvent);
   }
 
-  public end(event: Simplified<DurationEndEvent>): void {
+  public end(event: Simplified<DurationEndEvent> = {}): void {
     const { args, tts, ts, sf, cname, pid, tid, stack } = this.defaults(event);
     this._callSend({ ph: 'E', args, tts, ts, sf, cname, pid, tid, stack } as DurationEndEvent);
   }
