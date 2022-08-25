@@ -1,30 +1,5 @@
 import hrtime from 'browser-process-hrtime';
 
-import { Event } from '../schema';
-
-declare const process: { pid?: number } | undefined;
-
-export type RealtimeKeys = 'ts' | 'pid' | 'tid';
-export type RealtimeKeysAndPhase = RealtimeKeys | 'ph';
-
-export type OmitOptionally<T, K extends keyof T> = Omit<T, K> & Partial<Pick<T, K>>;
-export type Completable<T extends Event> = OmitOptionally<T, RealtimeKeys>;
-export type Simplified<T extends Event> = OmitOptionally<T, RealtimeKeysAndPhase>;
-export type AutocompletedEventFields = Pick<Event, RealtimeKeys>;
-
-/**
- * Simplistic cross-browser'ish get PID implementation
- *
- * @returns {number} PID or 1 (stub)
- */
-export function getProcessId(): number {
-  if (typeof process === 'object' && typeof process.pid === 'number') {
-    return process.pid;
-  }
-
-  return 1;
-}
-
 /**
  * @returns {number} current time in microseconds
  */
