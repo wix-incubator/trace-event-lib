@@ -1,8 +1,8 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`async events 1`] = `
-Array [
-  Object {
+[
+  {
     "cat": "app",
     "id": 0,
     "name": "launch app [com.example.App1]",
@@ -11,7 +11,7 @@ Array [
     "tid": 0,
     "ts": 0,
   },
-  Object {
+  {
     "cat": "app",
     "id": 0,
     "name": "install app",
@@ -20,7 +20,7 @@ Array [
     "tid": 0,
     "ts": 0,
   },
-  Object {
+  {
     "cat": "app",
     "id": 0,
     "name": "install app",
@@ -29,7 +29,7 @@ Array [
     "tid": 0,
     "ts": 8000000,
   },
-  Object {
+  {
     "cat": "app",
     "id": 0,
     "name": "launch app [com.example.App1]",
@@ -38,7 +38,7 @@ Array [
     "tid": 0,
     "ts": 10000000,
   },
-  Object {
+  {
     "cat": "app",
     "id": 1,
     "name": "launch app [com.example.App2]",
@@ -47,7 +47,7 @@ Array [
     "tid": 0,
     "ts": 2000000,
   },
-  Object {
+  {
     "cat": "app",
     "id": 1,
     "name": "install app",
@@ -56,7 +56,7 @@ Array [
     "tid": 0,
     "ts": 2000000,
   },
-  Object {
+  {
     "cat": "app",
     "id": 1,
     "name": "install app",
@@ -65,7 +65,7 @@ Array [
     "tid": 0,
     "ts": 8000000,
   },
-  Object {
+  {
     "cat": "app",
     "id": 1,
     "name": "launch app [com.example.App2]",

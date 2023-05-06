@@ -12,7 +12,6 @@ export interface EventWithStack extends Event {
    * e.g. the closest to what was running when the event was issued.
    * You can put anything you want in each trace, but strings in hex form ("0x1234")
    * are treated as program counter addresses and are eligible for symbolization.
-   *
    * @example ["0x1", "0x2"]
    */
   stack?: string[];

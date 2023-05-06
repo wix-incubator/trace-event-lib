@@ -8,14 +8,12 @@ export type TraceEventJSONObject = {
   traceEvents: Event[];
   /**
    * String that specifies in which unit timestamps should be displayed.
-   *
    * @default 'ms'
    */
   displayTimeUnit?: 'ms' | 'ns';
   /**
    * String of Linux ftrace data or Windows ETW trace data.
    * This data must start with # tracer: and adhere to the Linux ftrace format or adhere to Windows ETW format.
-   *
    * @see http://lwn.net/Articles/365835/
    */
   systemTraceEvents?: string;

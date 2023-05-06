@@ -10,7 +10,6 @@ export interface AsyncEvent extends Event {
    * An additional required parameter id.
    * We consider the events with the same {@link Event#cat} and {@link #id} as events from the same event tree.
    * A nested async event should have the same category and id as its parent.
-   *
    * @see {#id2}
    */
   id?: number;

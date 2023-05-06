@@ -2,7 +2,6 @@ declare const process: { pid?: number } | undefined;
 
 /**
  * Simplistic cross-browser'ish get PID implementation
- *
  * @returns {number} PID or 1 (stub)
  */
 export function getProcessId(): number {

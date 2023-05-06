@@ -1,4 +1,5 @@
 export * from './Event';
+export * from './TraceEvent';
 export * from './EventWithStack';
 export * from './DurationEvent';
 export * from './CompleteEvent';
