@@ -1,6 +1,5 @@
 /**
  * A stringified number
- *
  * @example "5"
  */
 export type StackFrameId = string;

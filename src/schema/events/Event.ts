@@ -1,6 +1,5 @@
 /**
  * The main data type of Chrome Trace Event format
- *
  * @see https://docs.google.com/document/d/1CvAClvFfyA5R-PhYUmn5OOQtYMH4h6I0nSsKchNAySU
  */
 export interface Event {

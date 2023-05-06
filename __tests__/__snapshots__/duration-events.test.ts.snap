@@ -1,9 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`multiple processes 1`] = `
-Array [
-  Object {
-    "args": Object {
+[
+  {
+    "args": {
       "name": "cli",
     },
     "name": "process_name",
@@ -12,8 +12,8 @@ Array [
     "tid": 0,
     "ts": 0,
   },
-  Object {
-    "args": Object {
+  {
+    "args": {
       "name": "jest",
     },
     "name": "process_name",
@@ -22,7 +22,7 @@ Array [
     "tid": 0,
     "ts": 0,
   },
-  Object {
+  {
     "cat": "spawn",
     "dur": 2500000,
     "name": "jest --runInBand",
@@ -31,7 +31,7 @@ Array [
     "tid": 0,
     "ts": 0,
   },
-  Object {
+  {
     "cat": "run",
     "dur": 1000000,
     "name": "01.test.js",
@@ -40,7 +40,7 @@ Array [
     "tid": 0,
     "ts": 250000,
   },
-  Object {
+  {
     "cat": "run",
     "dur": 1000000,
     "name": "02.test.js",
@@ -53,8 +53,8 @@ Array [
 `;
 
 exports[`multiple threads 1`] = `
-Array [
-  Object {
+[
+  {
     "cat": "device",
     "name": "boot",
     "ph": "B",
@@ -62,13 +62,13 @@ Array [
     "tid": 1,
     "ts": 0,
   },
-  Object {
+  {
     "ph": "E",
     "pid": 1,
     "tid": 1,
     "ts": 1000000,
   },
-  Object {
+  {
     "cat": "device",
     "dur": 750000,
     "name": "install app",
@@ -77,7 +77,7 @@ Array [
     "tid": 1,
     "ts": 1250000,
   },
-  Object {
+  {
     "cat": "device",
     "dur": 250000,
     "name": "launch app",
@@ -86,7 +86,7 @@ Array [
     "tid": 1,
     "ts": 4000000,
   },
-  Object {
+  {
     "cat": "lifecycle",
     "name": "Dashboard - should have a currency widget",
     "ph": "B",
@@ -94,7 +94,7 @@ Array [
     "tid": 0,
     "ts": 3000000,
   },
-  Object {
+  {
     "cat": "lifecycle",
     "name": "beforeEach",
     "ph": "B",
@@ -102,13 +102,13 @@ Array [
     "tid": 0,
     "ts": 4000000,
   },
-  Object {
+  {
     "ph": "E",
     "pid": 1,
     "tid": 0,
     "ts": 5000000,
   },
-  Object {
+  {
     "cat": "lifecycle",
     "name": "testFn",
     "ph": "B",
@@ -116,13 +116,13 @@ Array [
     "tid": 0,
     "ts": 6000000,
   },
-  Object {
+  {
     "ph": "E",
     "pid": 1,
     "tid": 0,
     "ts": 8000000,
   },
-  Object {
+  {
     "cat": "lifecycle",
     "name": "afterEach",
     "ph": "B",
@@ -130,20 +130,20 @@ Array [
     "tid": 0,
     "ts": 9000000,
   },
-  Object {
+  {
     "ph": "E",
     "pid": 1,
     "tid": 0,
     "ts": 10000000,
   },
-  Object {
+  {
     "ph": "E",
     "pid": 1,
     "tid": 0,
     "ts": 11000000,
   },
-  Object {
-    "args": Object {
+  {
+    "args": {
       "name": "Test lifecycle",
     },
     "name": "thread_name",
@@ -152,8 +152,8 @@ Array [
     "tid": 0,
     "ts": 0,
   },
-  Object {
-    "args": Object {
+  {
+    "args": {
       "name": "Device",
     },
     "name": "thread_name",
@@ -162,8 +162,8 @@ Array [
     "tid": 1,
     "ts": 0,
   },
-  Object {
-    "args": Object {
+  {
+    "args": {
       "sort_index": 2,
     },
     "name": "thread_sort_index",
@@ -172,8 +172,8 @@ Array [
     "tid": 0,
     "ts": 0,
   },
-  Object {
-    "args": Object {
+  {
+    "args": {
       "sort_index": 1,
     },
     "name": "thread_sort_index",
@@ -186,9 +186,9 @@ Array [
 `;
 
 exports[`single process 1`] = `
-Array [
-  Object {
-    "args": Object {
+[
+  {
+    "args": {
       "testTimeout": 60000,
     },
     "cat": "config",
@@ -198,7 +198,7 @@ Array [
     "tid": 0,
     "ts": 0,
   },
-  Object {
+  {
     "cat": "device",
     "name": "Boot a device",
     "ph": "B",
@@ -206,13 +206,13 @@ Array [
     "tid": 0,
     "ts": 0,
   },
-  Object {
+  {
     "ph": "E",
     "pid": 1,
     "tid": 0,
     "ts": 1000000,
   },
-  Object {
+  {
     "cat": "test",
     "name": "Run a test suite",
     "ph": "B",
@@ -220,13 +220,13 @@ Array [
     "tid": 0,
     "ts": 1000000,
   },
-  Object {
+  {
     "ph": "E",
     "pid": 1,
     "tid": 0,
     "ts": 10000000,
   },
-  Object {
+  {
     "cat": "device",
     "dur": 3000000,
     "name": "Shutdown the device",

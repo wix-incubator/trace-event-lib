@@ -1,6 +1,3 @@
-import isUndefined from 'lodash/isUndefined';
-import omitBy from 'lodash/omitBy';
-
 import {
   AsyncEndEvent,
   AsyncInstantEvent,
@@ -19,7 +16,7 @@ import {
   MetadataThreadSortIndexEvent,
 } from '../schema';
 
-import { getProcessId, now } from '../utils';
+import { compactObject, getProcessId, now } from '../utils';
 
 export type OmitOptionally<T, K extends keyof T> = Omit<T, K> & Partial<Pick<T, K>>;
 
@@ -33,7 +30,7 @@ export abstract class AbstractEventBuilder {
   public begin(event: Simplified<DurationBeginEvent>): void {
     const { args, tts, ts, cat, name, sf, cname, pid, tid, stack } = this.defaults(event);
 
-    this._callSend({
+    this.event({
       ph: 'B',
       args,
       tts,
@@ -51,7 +48,7 @@ export abstract class AbstractEventBuilder {
   public beginAsync(event: Simplified<AsyncStartEvent>): void {
     const { args, cat, name, pid, tid, ts, tts, cname, id, id2, scope } = this.defaults(event);
 
-    this._callSend({
+    this.event({
       ph: 'b',
       args,
       cat,
@@ -71,7 +68,7 @@ export abstract class AbstractEventBuilder {
     const { tid, pid, ts, args, tts, sf, cname, dur, stack, esf, cat, name, tdur, estack } =
       this.defaults(event);
 
-    this._callSend({
+    this.event({
       ph: 'X',
       args,
       cat,
@@ -92,17 +89,17 @@ export abstract class AbstractEventBuilder {
 
   public counter(event: Simplified<CounterEvent>): void {
     const { args, cat, cname, pid, tid, ts, tts, name, id } = this.defaults(event);
-    this._callSend({ ph: 'C', args, cat, cname, pid, tid, ts, tts, name, id } as CounterEvent);
+    this.event({ ph: 'C', args, cat, cname, pid, tid, ts, tts, name, id } as CounterEvent);
   }
 
   public end(event: Simplified<DurationEndEvent> = {}): void {
     const { args, tts, ts, sf, cname, pid, tid, stack } = this.defaults(event);
-    this._callSend({ ph: 'E', args, tts, ts, sf, cname, pid, tid, stack } as DurationEndEvent);
+    this.event({ ph: 'E', args, tts, ts, sf, cname, pid, tid, stack } as DurationEndEvent);
   }
 
   public endAsync(event: Simplified<AsyncEndEvent>): void {
     const { args, tts, tid, ts, pid, cname, id, id2, scope, cat, name } = this.defaults(event);
-    this._callSend({
+    this.event({
       ph: 'e',
       args,
       tts,
@@ -121,7 +118,7 @@ export abstract class AbstractEventBuilder {
   public instant(event: Simplified<InstantEvent>): void {
     const { args, sf, cname, pid, tid, ts, tts, cat, name, s, stack } = this.defaults(event);
 
-    this._callSend({
+    this.event({
       ph: 'i',
       args,
       cat,
@@ -139,7 +136,7 @@ export abstract class AbstractEventBuilder {
 
   public instantAsync(event: Simplified<AsyncInstantEvent>): void {
     const { args, cat, name, pid, tid, ts, tts, cname, id, id2, scope } = this.defaults(event);
-    this._callSend({
+    this.event({
       ph: 'n',
       args,
       cat,
@@ -157,7 +154,7 @@ export abstract class AbstractEventBuilder {
 
   public metadata<T extends MetadataEvent>(event: Simplified<T>): void {
     const { args, tts, ts, tid, pid, cname, cat, name } = this.defaults(event);
-    this._callSend({ ph: 'M', args, tts, ts, tid, pid, cname, cat, name } as MetadataEvent);
+    this.event({ ph: 'M', args, tts, ts, tid, pid, cname, cat, name } as MetadataEvent);
   }
 
   public process_labels(labels: string[], pid?: number): void {
@@ -202,6 +199,10 @@ export abstract class AbstractEventBuilder {
     });
   }
 
+  public event<T extends Event>(event: Completable<T>): void {
+    this.send(compactObject(this.defaults(event) as T));
+  }
+
   protected defaults<T extends Partial<Event>>(event: T): T & AutocompletedEventFields {
     const { ts = now(), pid = getProcessId(), tid = 0 } = event;
 
@@ -213,10 +214,6 @@ export abstract class AbstractEventBuilder {
       tid,
     } as any; // eslint-disable-line @typescript-eslint/no-explicit-any
   }
-
-  private readonly _callSend = <T extends Event>(event: Completable<T>): void => {
-    this.send(omitBy(this.defaults(event) as T, isUndefined) as T);
-  };
 
   protected abstract send<T extends Event>(event: T): void;
 }

@@ -16,7 +16,6 @@ export interface CompleteEvent extends EventWithStack {
   /**
    * Time of the start of the complete event.
    * Unlike {@link DurationEvent}, the timestamps of complete events can be in any order.
-   *
    * @see {Event#ts}
    */
   ts: number;

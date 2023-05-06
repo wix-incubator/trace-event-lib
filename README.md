@@ -7,7 +7,7 @@
 
 A library to create a trace of your JS app per [Google's Trace Event format](https://docs.google.com/document/d/1CvAClvFfyA5R-PhYUmn5OOQtYMH4h6I0nSsKchNAySU).
 
-![chrome://tracing example](media/duration-events-test-ts-multiple-threads-2-snap.png)
+![chrome://tracing example](https://raw.githubusercontent.com/wix-incubator/trace-event-lib/master/media/duration-events-test-ts-multiple-threads-2-snap.png)
 
 These logs can then be visualized with:
 
