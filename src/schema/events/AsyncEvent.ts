@@ -2,6 +2,10 @@ import { Event } from './Event';
 
 export type AsyncID2 = { local: string } | { global: string };
 
+/**
+ * Async events are used to specify asynchronous operations. e.g. frames in a game, or network I/O.
+ * Async events are specified with the b, n and e event types.
+ */
 export interface AsyncEvent extends Event {
   /** @inheritDoc */
   ph: 'b' | 'n' | 'e';
